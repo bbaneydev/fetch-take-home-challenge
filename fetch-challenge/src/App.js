@@ -1,6 +1,8 @@
 import './App.css';
 import React, { useState, useEffect } from 'react'
+import { Routes, Route } from 'react-router-dom'
 import Signup from './components/Signup'
+import Notification from './components/Notification'
 
 function App() {
   // state to store the data from the fetch request
@@ -24,7 +26,10 @@ function App() {
 
   return (
     <div className="App">
-      <Signup data={data} />
+      <Routes>
+        <Route exact path='thankyou' exact element={<Notification />} />
+        <Route exact path='/' exact element={<Signup data={data} />} />
+      </Routes>
     </div>
   );
 }
