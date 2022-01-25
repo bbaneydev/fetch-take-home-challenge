@@ -1,23 +1,30 @@
-import logo from './logo.svg';
 import './App.css';
+import React, { useState, useEffect } from 'react'
+import Signup from './components/Signup'
 
 function App() {
+  // state to store the data from the fetch request
+  const [data, setData] = useState()
+
+
+  // fetch request in order to GET all the info from the endpoint
+  useEffect(() => {
+    fetch('https://frontend-take-home.fetchrewards.com/form')
+      .then(res => res.json())
+      .then(data => {
+        setData(data)
+      })
+  }, [])
+
+  // if there isn't data, return null until there is. Had some issues at first with the application trying to render before the data was available
+  if (!data) {
+    return null
+  }
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Signup data={data} />
     </div>
   );
 }
